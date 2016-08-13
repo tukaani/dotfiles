@@ -1,0 +1,6 @@
+#!/bin/sh
+apt-get update
+apt-get install i3lock -y
+apt-get install feh -y
+apt-get install i3blocks -y
+apt-get install xbacklight -y
