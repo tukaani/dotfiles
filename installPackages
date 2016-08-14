@@ -3,4 +3,6 @@ apt-get update
 apt-get install i3lock -y
 apt-get install feh -y
 apt-get install i3blocks -y
-apt-get install xbacklight -y
+apt-get install xbacklight 
+apt-get install compton
+sudo apt-get install rofi
