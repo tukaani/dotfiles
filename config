@@ -38,7 +38,7 @@ set $urgent-bg-color     #E53935
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 
-font pango:System San Francisco Display 12
+#font pango:System San Francisco Display 12
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -58,10 +58,6 @@ bindsym $mod+Shift+q kill
 
 # Default program launcher
 #bindsym $mod+d exec dmenu_run
-
-# Find only .desktop appilcations
-# Use run instaed drun to show cmd programs also
-bindsym $mod+d exec rofi -modi drun -show drun -lines 5 -eh 2 -width 50 -padding 50 -opacity "85"-font "System San Francisco Display 18" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -118,12 +114,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1: Terminal "
-set $workspace2 "2: Chromium "
 
 # switch to workspace
-bindsym $mod+1 workspace $workspace1 
-bindsym $mod+2 workspace $workspace2
+bindsym $mod+1 workspace 1 
+bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
@@ -134,8 +128,8 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
@@ -185,35 +179,41 @@ bindsym $mod+r mode "resize"
   client.unfocused        $base02 $base02    $base03 $base0F
   client.urgent           $base02 $base08    $base00 $base0F
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Status bar
 bar {
-        status_command i3blocks -c ~/dotfiles/i3blocks.conf
-	position top
-	colors {
-	      separator $base03
-	      background $base01
-	      statusline $base05
-	#                        border  background text
-	      focused_workspace  $base01 $base01    $base07
-	      active_workspace   $base01 $base02    $base03
-	      inactive_workspace $base01 $base01    $base03
-	      urgent_workspace   $base01 $base01    $base08
-    }
-  }
+	status_command i3status
+}
 
+# STARTUP CONFIGS
+#
 
-bindsym $mod+shift+x exec i3lock --color "$base02"
-exec_always --no-startup-id feh --bg-scale  /home/tuktuk/Downloads/wallpaper.jpg
+# Set your wallpaper
+#exec_always --no-startup-id feh --bg-scale wallpaper.jpg
+
+# Enables transparense. Might cause glitches
 exec --no-startup-id compton
-exec_always --no-startup-id xss-lock -- ~/dotfiles/lockscreen  -n
 
-#Keybindings
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -- -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+# GUI for handling WIFI, ethernet etc
+exec --no-startup-id nm-applet
+
+# Lock screen after 5 min
+exec --no-startup-id xautolock -time 5 -locker i3lock --color "$base02"
+
+# KEYBINGINDGS. Media buttongs tested for Thinkpad T450s
+#
+
+# Lock screen
+bindsym $mod+shift+x exec i3lock --color "$base02"
+
+# Show open windows and find only .desktop appilcations
+# Use run instaed drun to show cmd programs also
+bindsym $mod+d exec rofi -modi combi -combi-modi 'window#drun' -show combi
+#bindsym $mod+d exec rofi -modi drun -show drun -lines 5 -eh 2 -width 50 -padding 50 -opacity "85"-font "System San Francisco Display 18" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
+
+#bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+#bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -- -5%
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle
 
 

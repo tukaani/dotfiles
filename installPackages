@@ -1,8 +1,26 @@
 #!/bin/sh
+
 apt-get update
+apt-get install i3 -y
+
+# Lock screen
 apt-get install i3lock -y
+
+# Program to handle desktop wallpapers 
 apt-get install feh -y
-apt-get install i3blocks -y
-apt-get install xbacklight 
-apt-get install compton
-sudo apt-get install rofi
+#apt-get install i3blocks -y
+
+# Not working in debian 
+#apt-get install xbacklight 
+
+# Composer to get opacity etc
+apt-get install compton -y
+
+# Better version of dmenu
+apt-get install rofi -y
+
+# Program to handle automatic lock screen
+apt-get install xautolock -y
+
+apt-get install zsh -y
+
